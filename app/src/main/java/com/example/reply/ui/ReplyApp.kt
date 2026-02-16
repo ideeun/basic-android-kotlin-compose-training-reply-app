@@ -28,18 +28,28 @@ fun ReplyApp(
     windowSize: WindowWidthSizeClass,
     modifier: Modifier = Modifier,
 ) {
-    val navigationType : ReplyNavigationType = when (windowSize) {
+    val navigationType : ReplyNavigationType
+    val contentType : ReplyContentType
+
+    when (windowSize) {
         WindowWidthSizeClass.Compact -> {
-            ReplyNavigationType.BOTTOM_NAVIGATION
+            navigationType = ReplyNavigationType.BOTTOM_NAVIGATION
+            contentType = ReplyContentType.LIST_ONLY
         }
         WindowWidthSizeClass.Medium -> {
-            ReplyNavigationType.NAVIGATION_RAIL
+            navigationType = ReplyNavigationType.NAVIGATION_RAIL
+            contentType = ReplyContentType.LIST_ONLY
+
         }
         WindowWidthSizeClass.Expanded -> {
-            ReplyNavigationType.NAVIGATION_DRAWER
+            navigationType = ReplyNavigationType.NAVIGATION_DRAWER
+            contentType = ReplyContentType.LIST_AND_DETAIL
+
         }
         else -> {
-            ReplyNavigationType.NAVIGATION_DRAWER
+            navigationType = ReplyNavigationType.NAVIGATION_DRAWER
+            contentType = ReplyContentType.LIST_ONLY
+
         }
 
     }
@@ -49,6 +59,7 @@ fun ReplyApp(
 
     ReplyHomeScreen(
         navigationType = navigationType,
+        contentType = contentType,
         replyUiState = replyUiState,
         onTabPressed = { mailboxType: MailboxType ->
             viewModel.updateCurrentMailbox(mailboxType = mailboxType)

@@ -6,3 +6,14 @@ enum class ReplyNavigationType {
     NAVIGATION_DRAWER
 }
 
+enum class ReplyContentType{
+    LIST_ONLY,
+    LIST_AND_DETAIL
+}
+
+enum class ReplySize{
+    SMALL,
+    MEDIUM,
+    LARGE
+}
+

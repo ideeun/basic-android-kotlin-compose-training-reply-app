@@ -56,7 +56,8 @@ import com.example.reply.data.MailboxType
 fun ReplyDetailsScreen(
     replyUiState: ReplyUiState,
     onBackPressed: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    isFullScreen: Boolean = false
 ) {
     BackHandler{
         onBackPressed()
@@ -69,6 +70,7 @@ fun ReplyDetailsScreen(
                 .background(color = MaterialTheme.colorScheme.inverseOnSurface)
         ) {
             item {
+                if (isFullScreen){
                 ReplyDetailsScreenTopBar(
                     onBackPressed,
                     replyUiState,
@@ -78,13 +80,14 @@ fun ReplyDetailsScreen(
                             bottom = dimensionResource(R.dimen.detail_topbar_padding_bottom),
                             top = dimensionResource(R.dimen.topbar_padding_vertical)
                         )
-                )
+                )}
                 ReplyEmailDetailsCard(
                     email = replyUiState.currentSelectedEmail,
                     mailboxType = replyUiState.currentMailbox,
-                    modifier = Modifier
+                    modifier = if (isFullScreen){Modifier
                         .navigationBarsPadding()
-                        .padding(horizontal = dimensionResource(R.dimen.detail_card_outer_padding_horizontal))
+                        .padding(horizontal = dimensionResource(R.dimen.detail_card_outer_padding_horizontal))}
+                    else Modifier.padding(end = dimensionResource(R.dimen.detail_card_outer_padding_horizontal))
                 )
             }
         }
